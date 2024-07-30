@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js</title>
+    <link rel="stylesheet" href="styles.css">
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.156.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.156.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <canvas id="mainCanvas"></canvas>
+        <div class="controls">
+            <label for="coil-loop">Number of Coil Loops:</label>
+            <input type="range" id="coil-loop" name="coil-loop" min="1" max="10" value="1">
+            <span id="coil-loop-value">1</span>
+            <br><br>
+            <label for="field-strength">Field Strength:</label>
+            <input type="range" id="field-strength" name="field-strength" min="5" max="25" step="5" value="5">
+            <span id="field-strength-value">5</span>
+            <br><br>
+    
+       
+            <label for="magnet-speed">Magnet Speed:</label>
+            <input type="range" min="1" max="4" value="1" id="magnet-speed">
+            <span id="magnet-speed-value">1</span>
+        </div>
+            <div class = "movements">
+            <button id="move-magnet">Move Magnet</button>
+            <button id="move-coil">Move Coil</button>
+            <button id="move-both">Move Magnet and Coil</button>
+            <br>
+            <button id="toggle-plot">Show Graph</button>
+        </div>
+        <div class = "plot-container">
+        <canvas id="plotCanvas"></canvas>
+        <button id="play-button">Play</button>
+        </div>
+        <div class="current-meter">
+            <span>Current: <span id="current-value">0 A</span></span>
+        </div>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+canvas {
+    display: block;
+}
+
+#mainCanvas {
+    flex: 1 1 50%; /* Takes up 30% of the width and can grow/shrink */
+    width: 50%;
+    background-color: #e0e0e0; /* Background color for visibility */
+
+}
+
+#plotCanvas {
+    flex: 0 1 30%; /* Takes 60% width */
+    height: 10vh; /* Takes 10% height */
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    margin-top: 30px; /* Spacing below controls/movements */
+}
+
+.controls {
+    flex: 1 1 30%; /* Takes 30% of the width */
+    padding: 10px;
+    height: 300px; /* Automatically adjusts height */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin-right: 10px; /* Spacing between controls and movements */
+}
+
+.controls label {
+    flex: 1 ;
+    font-size: 1rem;
+}
+
+.controls input[type=range] {
+    flex: 1 ;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.movements {
+    flex: 1 1 30%; /* Takes 30% of the width */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    height: 300px;
+}
+
+.movements button {
+    flex: 1 ;
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.plot-container {
+    top: 30px;
+    position: relative; 
+}
+
+.plot-container button {
+    position: absolute;
+    top:-50px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.current-meter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+@media only screen and (max-width: 600px){
+    #plotCanvas {
+        flex: 0 1 100%; /* Takes 60% width */
+        height: 10vh; /* Takes 10% height */
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        margin-top: 30px; /* Spacing below controls/movements */
+        margin-left: 10px;
+    }
+    
+    .controls {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 30%; /* Automatically adjusts height */
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin-right: 10px; /* Spacing between controls and movements */
+    }
+    
+    .controls label {
+        font-size: 0.8rem;
+    }
+    
+    .controls input[type=range] {
+        width: 40%;
+        margin-bottom: 5px;
+    }
+    
+    .movements {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 30%;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+    
+    }
+    
+    .movements button {
+        margin-top: 10px;
+        padding: 5px 15px;
+        font-size: 0.6rem;
+        cursor: pointer;
+    }
+
+    .plot-container {
+        top: 10px;
+        position: relative; 
+    }
+    
+    .plot-container button {
+        position: absolute;
+        top:-50px;
+        padding: 5px 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+}
+
+@media only screen and (min-width: 600px){
+    .controls {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 40%; /* Automatically adjusts height */
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin-right: 10px; 
+        margin-left: 10px;
+    }
+    
+    .controls label {
+        font-size: 1rem;
+    }
+    
+    .controls input[type=range] {
+        width: 50%;
+        margin-bottom: 10px;
+    }
+    
+    .movements {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+    
+    }
+    
+    .movements button {
+        margin-top: 10px;
+        padding: 5px 15px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    
+    .plot-container {
+        top: 10px;
+        position: relative; 
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (min-width: 768px){
+
+}
