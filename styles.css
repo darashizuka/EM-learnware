@@ -25,7 +25,7 @@ canvas {
     flex: 1 1 50%; /* Takes up 30% of the width and can grow/shrink */
     width: 50%;
     background-color: #e0e0e0; /* Background color for visibility */
-
+    position: relative;
 }
 
 #plotCanvas {
@@ -99,6 +99,7 @@ canvas {
     padding: 5px 10px;
     font-size: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index:1000;
 }
 
 
@@ -198,13 +199,47 @@ canvas {
         max-width: 400px;
     
     }
-    
+
     .movements button {
-        margin-top: 10px;
-        padding: 5px 15px;
-        font-size: 1rem;
-        cursor: pointer;
+        display: inline-block;
+        padding: .75rem 1.25rem;
+        border-radius: 10rem;
+        color: #000000;
+        border:none;
+        text-transform: uppercase;
+        font-size: 0.6rem;
+        letter-spacing: .15rem;
+        transition: all .3s;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
     }
+    
+    .movements button:hover:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0cf;
+        border-radius: 10rem;
+        z-index: -2;
+    }
+    
+    .movements button:hover:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-color: darken(#0cf, 15%);
+        transition: all .3s;
+        border-radius: 10rem;
+        z-index: -1;
+    }
+
     
     .plot-container {
         top: 10px;
@@ -214,5 +249,391 @@ canvas {
 }
 
 @media only screen and (min-width: 768px){
+    .controls {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 40%; /* Automatically adjusts height */
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin-right: 10px; 
+        margin-left: 10px;
+    }
+    
+    .controls label {
+        font-size: 1rem;
+    }
+    
+    .controls input[type=range] {
+        width: 50%;
+        margin-bottom: 10px;
+    }
+    
+    .movements {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+    
+    }
 
+    .movements button {
+        display: inline-block;
+        padding: .75rem 1.25rem;
+        border-radius: 10rem;
+        border:none; 
+        color: #000000;
+        text-transform: uppercase;
+        font-size: 0.6rem;
+        letter-spacing: .15rem;
+        transition: all .3s;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .movements button:hover:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0cf;
+        border-radius: 10rem;
+        z-index: -2;
+    }
+    
+    .movements button:hover:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-color: darken(#0cf, 15%);
+        transition: all .3s;
+        border-radius: 10rem;
+        z-index: -1;
+    }
+
+    .legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        bottom: 130px;
+        right:-10px;
+        z-index: 1000;
+    }
+
+    .legend div {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        font-size:12px;
+    }
+    
+    .legend-icon {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 2px;
+        border: 1px solid #000;
+        border-radius: 3px;
+    }
+
+    .legend-text {
+        font-weight: bold;
+        margin: 0 5px;
+        font-size:10px;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        z-index: 2000;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 600px; /* Maximum width */
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    
+    .plot-container {
+        top: 10px;
+        position: relative; 
+        margin-left: 10px;
+    }
+
+    .help-container {
+        position: fixed;
+        bottom: 20px; /* Distance from the bottom of the screen */
+        right: 20px;  /* Distance from the right edge of the screen */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .help-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #007bff; /* Background color of the icon */
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+    /* .help-tooltip {
+        display: none;
+        position: absolute;
+        bottom: 50px; 
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        white-space: wrap;
+        max-width: 200px; 
+        text-align: center;
+    } */
+
+    .current-meter {
+        position: absolute;
+        top: 450px;
+        right: 100px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index:1000;
+    }
+    
+    
+}
+
+@media only screen and (min-width: 992px){
+    .movements {
+        flex: 1 1 20%; 
+        padding: 10px;
+        height: 40%;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+    
+    }
+
+    .movements button {
+        display: inline-block;
+        padding: .75rem 1.25rem;
+        border-radius: 10rem;
+        border:none; 
+        color: #000000;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: .15rem;
+        transition: all .3s;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .movements button:hover:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0cf;
+        border-radius: 10rem;
+        z-index: -2;
+    }
+    
+    .movements button:hover:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-color: darken(#0cf, 15%);
+        transition: all .3s;
+        border-radius: 10rem;
+        z-index: -1;
+    }
+
+    .legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        bottom: 130px;
+        right: 60px;
+        z-index: 1000;
+    }
+    
+    .legend div {
+        display: flex;
+        align-items: center;
+        margin-right: 1px;
+        font-size:15px;
+    }
+    
+    .legend-icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        border: 1px solid #000;
+        border-radius: 3px;
+    }
+
+    
+    .legend-text {
+        font-weight: bold;
+        margin: 0 5px;
+    }
+
+    .help-container {
+        position: fixed;
+        bottom: 20px; /* Distance from the bottom of the screen */
+        right: 20px;  /* Distance from the right edge of the screen */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .help-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #007bff; /* Background color of the icon */
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+    }
+/*     
+    .help-tooltip {
+        display: none;
+        position: absolute;
+        bottom: 50px; 
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        white-space: wrap;
+        max-width: 200px; 
+        text-align: center;
+    }
+     */
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        z-index: 2000;
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 600px; /* Maximum width */
+        text-align: center;
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .current-meter {
+        position: absolute;
+        top: 550px;
+        right: 250px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index:1000;
+    }
 }
